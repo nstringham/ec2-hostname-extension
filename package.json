@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prettier": "prettier --check ."
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.25",

@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npx prettier --check .
+      - run: npm ci
+      - run: npx run prettier
 
   check:
     name: Svelte Check
