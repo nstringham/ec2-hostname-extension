@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/chrome-manifest",
   "manifest_version": 3,
   "name": "EC2 Hostname",
   "version": "1.0.0",
