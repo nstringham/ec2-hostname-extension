@@ -5,5 +5,13 @@ import manifest from "./manifest.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: "assets/[name][extname]",
+        chunkFileNames: "assets/[name].js",
+      },
+    },
+  },
   plugins: [svelte(), crx({ manifest })],
 });
