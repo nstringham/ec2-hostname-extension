@@ -29,8 +29,9 @@
 
 <style>
   .grid {
-    width: 512px;
+    min-width: 512px;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto 72px;
+    gap: 4px;
   }
 </style>
