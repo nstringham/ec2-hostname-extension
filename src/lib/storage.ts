@@ -1,13 +1,32 @@
 import type { Readable, Subscriber } from "svelte/store";
 
-export type Types = typeof values;
+export type Instance = {
+  name: string;
+  instanceId: string;
+  ip: string;
+};
 
-const values = {
-  count: 0,
+export type Mapping = {
+  instanceId: string;
+  hostname: string;
+};
+
+type Types = {
+  knownInstances: Instance[];
+  knownHostnames: string[];
+  mappings: Mapping[];
+};
+
+const values: Types = {
+  knownInstances: [{ name: "test name", instanceId: "i-testid", ip: "129.168.86.1" }],
+  knownHostnames: ["natehost", "ec2", "ec2-prod"],
+  mappings: [{ instanceId: "i-testid", hostname: "natehost" }],
 };
 
 const subscribers: { [key in keyof Types]: Set<Subscriber<Types[key]>> } = {
-  count: new Set(),
+  knownInstances: new Set(),
+  mappings: new Set(),
+  knownHostnames: new Set(),
 };
 
 function update<K extends keyof Types>(key: K, value: Types[K]) {
@@ -43,7 +62,7 @@ export interface AsyncWritable<T> extends Readable<T> {
   set(this: void, value: T): Promise<void>;
 }
 
-export function local<K extends keyof Types>(key: K): AsyncWritable<Types[K]> {
+function createStore<K extends keyof Types>(key: K): AsyncWritable<Types[K]> {
   return {
     subscribe(subscriber) {
       subscriber(values[key]);
@@ -57,3 +76,7 @@ export function local<K extends keyof Types>(key: K): AsyncWritable<Types[K]> {
     },
   };
 }
+
+export const knownInstances = createStore("knownInstances");
+export const knownHostnames = createStore("knownHostnames");
+export const mappings = createStore("mappings");
